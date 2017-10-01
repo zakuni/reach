@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/home/app/reach
+      - /home/app/reach/node_modules
+    ports:
+      - 3000:3000

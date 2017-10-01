@@ -1,0 +1,10 @@
+{
+  "name": "reach",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "zakuni",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.3.0"
+  }
+}
