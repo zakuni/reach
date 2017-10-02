@@ -1,9 +1,13 @@
-const Koa = require('koa');
-const app = new Koa();
+const views = require('koa-views');
 const router = require('koa-router')();
 
-router.get('/', function (ctx, next) {
-  ctx.body = 'Hello Reach';
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(views(__dirname));
+
+router.get('/', async function (ctx, next) {
+  await ctx.render('index');
 });
 
 app
