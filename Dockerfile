@@ -16,4 +16,4 @@ RUN chown -R app:app $HOME/*
 USER app
 
 EXPOSE 3000
-CMD ["node", "index.js"]
+CMD ["node", "server.js"]
