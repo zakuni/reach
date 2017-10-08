@@ -14,6 +14,7 @@ USER root
 COPY . $HOME/reach
 RUN chown -R app:app $HOME/*
 USER app
+RUN yarn run build
 
 EXPOSE 3000
 CMD ["node", "server.js"]
