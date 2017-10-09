@@ -7,6 +7,17 @@ const app = new Koa();
 
 const PORT = process.env.PORT || 3000;
 
+if (process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('koa-webpack-middleware').devMiddleware;
+  const config = require('./webpack.config.js');
+  const compiler = webpack(config);
+
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath
+  }));
+}
+
 app.use(views(path.resolve(__dirname, 'dist')));
 app.use(require('koa-static')(path.resolve(__dirname, 'dist')));
 
