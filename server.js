@@ -1,9 +1,12 @@
+const logger = require('koa-logger');
 const views = require('koa-views');
 const router = require('koa-router')();
 const path = require('path');
 
 const Koa = require('koa');
 const app = new Koa();
+
+app.use(logger());
 
 const PORT = process.env.PORT || 3000;
 
