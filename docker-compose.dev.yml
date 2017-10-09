@@ -1,4 +1,6 @@
 version: '3'
 services:
   web:
+    environment:
+      NODE_ENV: 'development'
     command: ["yarn", "run", "start-dev"]

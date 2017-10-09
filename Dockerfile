@@ -16,5 +16,6 @@ RUN chown -R app:app $HOME/*
 USER app
 RUN yarn run build
 
+ENV NODE_ENV=production
 EXPOSE 3000
 CMD ["node", "server.js"]
