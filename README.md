@@ -8,7 +8,7 @@ Reach informations, to all in need.
 prerequisites
 - docker
 
-## Build
+### Build
 
 ```
 docker-compose build
@@ -17,7 +17,11 @@ docker-compose build
 ### Run
 
 ```sh
+# in production
 docker-compose up
+
+# in development
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 open http://localhost:3000
