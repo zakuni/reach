@@ -10,7 +10,11 @@ function Root() {
     <MuiThemeProvider theme={theme}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <h1 style={{textAlign: 'center'}}>Reach</h1>
+          <Grid container justify={'center'} align={'center'} style={{height: '550px'}}>
+            <Grid item>
+              <h1>Reach</h1>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </MuiThemeProvider>
