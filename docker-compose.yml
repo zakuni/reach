@@ -2,9 +2,17 @@ version: '3'
 services:
   web:
     build: .
+    depends_on:
+      - mongo
     volumes:
       - .:/home/app/reach
       - /home/app/reach/node_modules
       - /home/app/reach/dist
     ports:
       - 3000:3000
+    environment:
+      - MONGODB_URI=mongodb://mongo/reach
+  mongo:
+    image: mongo:3
+    ports:
+      - 27017:27017
