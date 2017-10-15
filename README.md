@@ -25,3 +25,9 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 open http://localhost:3000
+
+### Test
+
+```sh
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml run --rm web yarn test
+```

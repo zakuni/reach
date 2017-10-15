@@ -17,15 +17,20 @@
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
     "html-webpack-plugin": "^2.30.1",
+    "intelli-espower-loader": "^1.0.1",
     "koa-webpack-middleware": "^1.0.7",
     "material-ui": "^1.0.0-beta.13",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
+    "power-assert": "^1.4.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "sinon": "^4.0.1",
     "webpack": "^3.6.0"
   },
   "scripts": {
     "build": "webpack",
-    "start-dev": "nodemon server.js"
+    "start-dev": "nodemon server.js",
+    "test": "mocha"
   }
 }
