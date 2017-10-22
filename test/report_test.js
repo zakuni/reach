@@ -12,21 +12,27 @@ module.exports = {
       });
       assert.equal(error.name, 'ValidationError');
     },
-    'is invalid with author not using User model': async function() {
-      let report = new Report({ author: 'author' });
-      let error;
-      await report.validate().catch(err => {
-        error = err;
-      });
-      assert.equal(error.name, 'ValidationError');
-    },
-    'is valid with author using User model': async function() {
-      let report = new Report({ author: new User() });
-      let error;
-      await report.validate().catch(err => {
-        error = err;
-      });
-      assert.equal(error, undefined);
+    '#author': {
+      'when not using User model': {
+        'is invalid': async function() {
+          let report = new Report({ author: 'author' });
+          let error;
+          await report.validate().catch(err => {
+            error = err;
+          });
+          assert.equal(error.name, 'ValidationError');
+        }
+      },
+      'when using User model': {
+        'is valid': async function() {
+          let report = new Report({ author: new User() });
+          let error;
+          await report.validate().catch(err => {
+            error = err;
+          });
+          assert.equal(error, undefined);
+        }
+      }
     }
   }
 };
