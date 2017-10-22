@@ -9,7 +9,7 @@ const app = new Koa();
 app.use(logger());
 
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI
+const MONGODB_URI = process.env.MONGODB_URI;
 const mongoose = require('mongoose');
 mongoose.connect(MONGODB_URI, {
   useMongoClient: true
