@@ -3,7 +3,8 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  content: String
 }, { timestamps: true });
 
 module.exports = mongoose.model('Report', reportSchema);

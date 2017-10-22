@@ -33,6 +33,12 @@ module.exports = {
           assert.equal(error, undefined);
         }
       }
+    },
+    '#content': {
+      'is defined key': function() {
+        let report = new Report({content: 'content'});
+        assert.equal(report.content, 'content');
+      }
     }
   }
 };
