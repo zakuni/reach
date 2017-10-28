@@ -12,6 +12,9 @@ services:
       - 3000:3000
     environment:
       - MONGODB_URI=mongodb://mongo/reach
+      - SESSION_SECRET=${SESSION_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
   mongo:
     image: mongo:3
     ports:

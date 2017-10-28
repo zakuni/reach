@@ -6,11 +6,15 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
     "koa-logger": "^3.1.0",
+    "koa-passport": "^4.0.1",
     "koa-router": "^7.2.1",
+    "koa-session": "^5.5.0",
     "koa-static": "^4.0.1",
     "koa-views": "^6.1.0",
-    "mongoose": "^4.12.1"
+    "mongoose": "^4.12.1",
+    "passport-google-oauth": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -33,6 +37,7 @@
   "scripts": {
     "build": "webpack",
     "start-dev": "nodemon server.js",
+    "start-debug": "DEBUG=*,-babel nodemon server.js",
     "test": "mocha",
     "lint": "eslint . --ext .js,.jsx"
   }
