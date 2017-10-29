@@ -83,10 +83,18 @@ router.get('/logout', async ctx => {
   ctx.redirect('/');
 });
 
-// eslint-disable-next-line no-unused-vars
-router.get('/app', function(ctx, next) {
-  ctx.body = 'login successful';
-});
+router.get('/app',
+  async function(ctx, next) {
+    if (ctx.isUnauthenticated()) {
+      ctx.redirect('/');
+    } else {
+      await next();
+    }
+  },
+  async function(ctx) {
+    ctx.body = 'login successful';
+  }
+);
 
 app
   .use(router.routes())
