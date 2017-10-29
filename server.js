@@ -79,7 +79,7 @@ router.get('/auth/google/callback',
 );
 
 router.get('/logout', async ctx => {
-  ctx.logout();
+  await ctx.logout();
   ctx.redirect('/');
 });
 
