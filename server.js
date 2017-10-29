@@ -69,10 +69,8 @@ router.get('/', async function (ctx, next) {
   await ctx.render('index');
 });
 
-// eslint-disable-next-line no-unused-vars
 router.get('/auth/google', passport.authenticate('google', { scope: ['openid', 'profile'] }));
 
-// eslint-disable-next-line no-unused-vars
 router.get('/auth/google/callback',
   passport.authenticate('google', {
     successRedirect: '/app',
