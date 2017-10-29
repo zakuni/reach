@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const findOrCreate = require('mongoose-findorcreate');
 const Schema = mongoose.Schema;
 
