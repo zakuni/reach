@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
@@ -6,8 +7,8 @@ import Button from 'material-ui/Button';
 
 const theme = createMuiTheme();
 
-function Root() {
-  return (
+const Root = () => (
+  <Router>
     <MuiThemeProvider theme={theme}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
@@ -28,7 +29,7 @@ function Root() {
         </Grid>
       </Grid>
     </MuiThemeProvider>
-  );
-}
+  </Router>
+);
 
 render(<Root />, document.getElementById('root'));
