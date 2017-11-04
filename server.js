@@ -34,7 +34,7 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 }
 
-app.use(views(path.resolve(__dirname, 'dist')));
+app.use(views(path.resolve(__dirname, 'views')));
 app.use(require('koa-static')(path.resolve(__dirname, 'dist')));
 
 const passport = require('koa-passport');
