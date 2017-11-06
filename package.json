@@ -25,7 +25,6 @@
     "eslint": "^4.9.0",
     "eslint-plugin-react": "^7.4.0",
     "intelli-espower-loader": "^1.0.1",
-    "koa-webpack-middleware": "^1.0.7",
     "material-ui": "^1.0.0-beta.13",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
@@ -38,7 +37,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "start-dev": "nodemon server.js",
+    "start-dev": "nodemon server.js & webpack --watch",
     "start-debug": "DEBUG=*,-babel nodemon server.js",
     "test": "mocha",
     "lint": "eslint . --ext .js,.jsx"

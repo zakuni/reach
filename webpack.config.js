@@ -4,8 +4,7 @@ module.exports = {
   entry: './src/client.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     loaders: [

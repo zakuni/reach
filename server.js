@@ -23,17 +23,6 @@ mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('koa-webpack-middleware').devMiddleware;
-  const config = require('./webpack.config.js');
-  const compiler = webpack(config);
-
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath
-  }));
-}
-
 app.use(views(path.resolve(__dirname, 'views'), {
   extension: 'pug'
 }));
