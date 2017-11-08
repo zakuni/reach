@@ -2,16 +2,14 @@ import React from 'react';
 import {
   Route
 } from 'react-router-dom';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 
-const theme = createMuiTheme();
-
 const App = () => (
-  <MuiThemeProvider theme={theme}>
+  <div>
     <Route exact path='/' component={Login} />
-  </MuiThemeProvider>
+  </div>
 );
 
 const Login = () => (
