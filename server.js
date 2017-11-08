@@ -39,10 +39,7 @@ const passport = require('koa-passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-// eslint-disable-next-line no-unused-vars
-router.get('/', async function (ctx, next) {
-  await ctx.render('index');
-});
+const IndexRouter = require('./routes').default;
 
 router.get('/auth/google', passport.authenticate('google', { scope: ['openid', 'profile'] }));
 
@@ -72,6 +69,7 @@ router.get('/app',
 );
 
 app
+  .use(IndexRouter.routes())
   .use(router.routes())
   .use(router.allowedMethods())
   .listen(PORT);
