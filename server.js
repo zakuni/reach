@@ -1,3 +1,10 @@
+require('babel-register')({
+  'presets': [['env', {
+    'targets': {
+      'node': 'current'
+    }
+  }]]
+});
 const logger = require('koa-logger');
 const views = require('koa-views');
 const router = require('koa-router')();
