@@ -7,12 +7,23 @@ import App from './components/app.jsx';
 
 const theme = createMuiTheme();
 
-const Root = () => (
-  <Router>
-    <MuiThemeProvider theme={theme}>
-      <App/>
-    </MuiThemeProvider>
-  </Router>
-);
+class Root extends React.Component {
+  componentDidMount() {
+    const jssStyles = document.getElementById('jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
+
+  render() {
+    return (
+      <Router>
+        <MuiThemeProvider theme={theme}>
+          <App/>
+        </MuiThemeProvider>
+      </Router>
+    );
+  }
+}
 
 hydrate(<Root />, document.getElementById('root'));
