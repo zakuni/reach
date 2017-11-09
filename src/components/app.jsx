@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 const App = () => (
   <div>
     <Route exact path='/' component={Login} />
+    <Route path='/index' component={Index} />
   </div>
 );
 
@@ -31,6 +32,10 @@ const Login = () => (
       </Grid>
     </Grid>
   </Grid>
+);
+
+const Index = () => (
+  <div>index</div>
 );
 
 export default App;

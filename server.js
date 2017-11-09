@@ -45,7 +45,7 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['openid', '
 
 router.get('/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/app',
+    successRedirect: '/index',
     failureRedirect: '/'
   })
 );
@@ -54,19 +54,6 @@ router.get('/logout', async ctx => {
   await ctx.logout();
   ctx.redirect('/');
 });
-
-router.get('/app',
-  async function(ctx, next) {
-    if (ctx.isUnauthenticated()) {
-      ctx.redirect('/');
-    } else {
-      await next();
-    }
-  },
-  async function(ctx) {
-    ctx.body = 'login successful';
-  }
-);
 
 app
   .use(IndexRouter.routes())

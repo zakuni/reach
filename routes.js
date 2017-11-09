@@ -38,4 +38,31 @@ router.get('/', async function (ctx, next) {
   });
 });
 
+// eslint-disable-next-line no-unused-vars
+router.get('/index', async function (ctx, next) {
+  let content;
+  let css;
+  if (ctx.isUnauthenticated()) {
+    return ctx.redirect('/');
+  } else {
+    content = ReactDOMServer.renderToString(
+      <StaticRouter
+        location={ctx.request.URL}
+        context={ctx}
+      >
+        <JssProvider registry={sheetsRegistry} jss={jss}>
+          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+            <App/>
+          </MuiThemeProvider>
+        </JssProvider>
+      </StaticRouter>
+    );
+    css = sheetsRegistry.toString();
+  }
+  await ctx.render('index', {
+    content: content,
+    css: css
+  });
+});
+
 export default router;
