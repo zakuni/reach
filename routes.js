@@ -65,4 +65,14 @@ router.get('/index', async function (ctx, next) {
   });
 });
 
+const Report = require('./models/report');
+// eslint-disable-next-line no-unused-vars
+router.get('/api/reports', async function (ctx, next) {
+  if (ctx.isUnauthenticated())
+    return ctx.redirect('/');
+
+  const reports = await Report.find({});
+  ctx.body = reports;
+});
+
 export default router;

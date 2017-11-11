@@ -34,8 +34,26 @@ const Login = () => (
   </Grid>
 );
 
-const Index = () => (
-  <div>index</div>
-);
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      reports: []
+    };
+  }
+  async componentDidMount() {
+    const response = await fetch('/api/reports', {credentials: 'include'});
+    const reports = await response.json();
+    this.setState({reports: reports});
+  }
+  render() {
+    const reportItems = this.state.reports.map((report) =>
+      <li key={report._id}>{report.updatedAt}</li>
+    );
+    return(
+      <ul>{reportItems}</ul>
+    );
+  }
+}
 
 export default App;
