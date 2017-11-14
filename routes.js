@@ -66,6 +66,16 @@ router.get('/index', async function (ctx, next) {
 });
 
 const Report = require('./models/report');
+
+// eslint-disable-next-line no-unused-vars
+router.post('/api/reports', async (ctx, next) => {
+  if (ctx.isUnauthenticated())
+    return ctx.redirect('/');
+
+  const report = await Report.create({ author: ctx.state.user });
+  ctx.body = report;
+});
+
 // eslint-disable-next-line no-unused-vars
 router.get('/api/reports', async function (ctx, next) {
   if (ctx.isUnauthenticated())
@@ -73,6 +83,16 @@ router.get('/api/reports', async function (ctx, next) {
 
   const reports = await Report.find({});
   ctx.body = reports;
+});
+
+// eslint-disable-next-line no-unused-vars
+router.get('/api/reports/:id', async function (ctx, next) {
+  if (ctx.isUnauthenticated())
+    return ctx.redirect('/');
+
+  const id = ctx.params.id;
+  const report = await Report.findById(id);
+  ctx.body = report;
 });
 
 export default router;
