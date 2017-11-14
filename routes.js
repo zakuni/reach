@@ -18,6 +18,10 @@ const jss = create(preset());
 
 // eslint-disable-next-line no-unused-vars
 router.get('/', async function (ctx, next) {
+  if (ctx.isAuthenticated()) {
+    return ctx.redirect('/index');
+  }
+
   const content = ReactDOMServer.renderToString(
     <StaticRouter
       location={ctx.request.URL}
