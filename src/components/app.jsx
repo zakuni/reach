@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Route
+  Route,
+  Link
 } from 'react-router-dom';
 
 import Grid from 'material-ui/Grid';
@@ -10,6 +11,7 @@ const App = () => (
   <div>
     <Route exact path='/' component={Login} />
     <Route path='/index' component={Index} />
+    <Route path='/new' component={Editor} />
   </div>
 );
 
@@ -51,7 +53,44 @@ class Index extends React.Component {
       <li key={report._id}>{report.updatedAt}</li>
     );
     return(
-      <ul>{reportItems}</ul>
+      <div>
+        <Link to='/new'>new</Link>
+        <ul>{reportItems}</ul>
+      </div>
+    );
+  }
+}
+
+class Editor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+  async handleSubmit(event) {
+    const obj = {dummy: this.state.value};
+    const method = 'POST';
+    const body = JSON.stringify(obj);
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    };
+    const response = await fetch('/api/reports', {method, headers, body}, {credentials: 'include'});
+    const report = await response.json();
+    event.preventDefault();
+  }
+  render() {
+    return(
+      <form onSubmit={this.handleSubmit}>
+        <textarea value={this.state.value} onChange={this.handleChange} />
+        <input type='submit' value='submit' />
+      </form>
     );
   }
 }

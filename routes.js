@@ -43,7 +43,7 @@ router.get('/', async function (ctx, next) {
 });
 
 // eslint-disable-next-line no-unused-vars
-router.get('/index', async function (ctx, next) {
+router.get(['/index', '/new'], async function (ctx, next) {
   if (ctx.isUnauthenticated()) {
     return ctx.redirect('/');
   }
