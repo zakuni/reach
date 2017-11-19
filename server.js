@@ -15,6 +15,9 @@ const app = new Koa();
 
 app.use(logger());
 
+const cors = require('@koa/cors');
+app.use(cors());
+
 const bodyParser = require('koa-bodyparser');
 app.use(bodyParser());
 

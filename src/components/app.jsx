@@ -61,6 +61,8 @@ class Index extends React.Component {
   }
 }
 
+import request from 'superagent';
+
 class Editor extends React.Component {
   constructor(props) {
     super(props);
@@ -74,16 +76,11 @@ class Editor extends React.Component {
     this.setState({value: event.target.value});
   }
   async handleSubmit(event) {
-    const obj = {dummy: this.state.value};
-    const method = 'POST';
-    const body = JSON.stringify(obj);
-    const headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    };
-    const response = await fetch('/api/reports', {method, headers, body}, {credentials: 'include'});
-    const report = await response.json();
     event.preventDefault();
+    const obj = {dummy: this.state.value};
+    const body = JSON.stringify(obj);
+    const response = await request.post('/api/reports').send(body).set('accept', 'json').withCredentials();
+    const report = response.body;
   }
   render() {
     return(
