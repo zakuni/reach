@@ -34,6 +34,12 @@ module.exports = {
         }
       }
     },
+    '#title': {
+      'is defined key': function() {
+        let report = new Report({title: 'title'});
+        assert.equal(report.title, 'title');
+      }
+    },
     '#content': {
       'is defined key': function() {
         let report = new Report({content: 'content'});
