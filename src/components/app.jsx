@@ -55,7 +55,7 @@ class Index extends React.Component {
   }
   render() {
     const reportItems = this.state.reports.map((report) =>
-      <li key={report._id}>{report.title}</li>
+      <li key={report._id}><Link to={report.title}>{report.title}</Link></li>
     );
     return(
       <div>
@@ -71,12 +71,18 @@ import request from 'superagent';
 class Editor extends React.Component {
   constructor(props) {
     super(props);
+    const report_title = props.match.params.report;
     this.state = {
-      value: '',
+      value: report_title || '',
       titleChanged: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  async componentDidMount() {
+    const response = await request.get(`/api/reports/${this.state.value}`).withCredentials();
+    const report = response.body;
+    this.setState({value: report.title});
   }
   componentWillReceiveProps(nextProps) {
     this.setState({titleChanged: false});

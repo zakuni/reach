@@ -43,7 +43,7 @@ router.get('/', async function (ctx, next) {
 });
 
 // eslint-disable-next-line no-unused-vars
-router.get(['/index', '/new'], async function (ctx, next) {
+router.get(['/index', '/new', '/:report'], async function (ctx, next) {
   if (ctx.isUnauthenticated()) {
     return ctx.redirect('/');
   }
@@ -90,12 +90,12 @@ router.get('/api/reports', async function (ctx, next) {
 });
 
 // eslint-disable-next-line no-unused-vars
-router.get('/api/reports/:id', async function (ctx, next) {
+router.get('/api/reports/:title', async function (ctx, next) {
   if (ctx.isUnauthenticated())
     return ctx.redirect('/');
 
-  const id = ctx.params.id;
-  const report = await Report.findById(id);
+  const title = ctx.params.title;
+  const report = await Report.findOne({ title: title });
   ctx.body = report;
 });
 
