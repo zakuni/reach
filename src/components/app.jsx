@@ -1,7 +1,9 @@
 import React from 'react';
 import {
   Route,
-  Link
+  Link,
+  Redirect,
+  Switch
 } from 'react-router-dom';
 
 import Grid from 'material-ui/Grid';
@@ -9,9 +11,12 @@ import Button from 'material-ui/Button';
 
 const App = () => (
   <div>
-    <Route exact path='/' component={Login} />
-    <Route path='/index' component={Index} />
-    <Route path='/new' component={Editor} />
+    <Switch>
+      <Route exact path='/' component={Login} />
+      <Route path='/index' component={Index} />
+      <Route path='/new' component={Editor} />
+      <Route path='/:report' component={Editor} />
+    </Switch>
   </div>
 );
 
@@ -50,7 +55,7 @@ class Index extends React.Component {
   }
   render() {
     const reportItems = this.state.reports.map((report) =>
-      <li key={report._id}>{report.updatedAt}</li>
+      <li key={report._id}>{report.title}</li>
     );
     return(
       <div>
@@ -67,22 +72,34 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      titleChanged: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({titleChanged: false});
   }
   handleChange(event) {
     this.setState({value: event.target.value});
   }
   async handleSubmit(event) {
     event.preventDefault();
-    const obj = {dummy: this.state.value};
-    const body = JSON.stringify(obj);
-    const response = await request.post('/api/reports').send(body).set('accept', 'json').withCredentials();
+    const response = await request.post('/api/reports')
+      .send({title: this.state.value})
+      .set('accept', 'json')
+      .withCredentials();
     const report = response.body;
+    this.setState({titleChanged: true});
   }
   render() {
+    const { titleChanged } = this.state;
+    if (titleChanged) {
+      return(
+        <Redirect to={`/${this.state.value}`}/>
+      );
+    }
     return(
       <form onSubmit={this.handleSubmit}>
         <textarea value={this.state.value} onChange={this.handleChange} />

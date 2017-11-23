@@ -75,7 +75,8 @@ router.post('/api/reports', async (ctx, next) => {
   if (ctx.isUnauthenticated())
     return ctx.redirect('/');
 
-  const report = await Report.create({ author: ctx.state.user });
+  const title = ctx.request.body.title;
+  const report = await Report.create({ title: title, author: ctx.state.user });
   ctx.body = report;
 });
 
