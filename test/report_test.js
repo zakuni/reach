@@ -46,6 +46,14 @@ module.exports = {
           error = err;
         });
         assert.equal(error.name, 'ValidationError');
+      },
+      'cannot be blank': async function() {
+        let report = new Report({title: ''});
+        let error;
+        await report.validate().catch(err => {
+          error = err;
+        });
+        assert.equal(error.name, 'ValidationError');
       }
     },
     '#content': {
