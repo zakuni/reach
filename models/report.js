@@ -8,8 +8,8 @@ const reportSchema = new Schema({
     type: String,
     required: true,
     validate: {
-      validator: function(v) {
-        this.model.count({ author: this.author, title: v }) === 0;
+      validator: async function(v) {
+        await this.model('Report').count({ author: this.author, title: v }) === 0;
       },
       message: '{VALUE} already exists'
     }
