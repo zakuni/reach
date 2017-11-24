@@ -40,7 +40,7 @@ module.exports = {
         assert.equal(report.title, 'title');
       },
       'is required': async function() {
-        let report = new Report();
+        let report = new Report({ author: new User() });
         let error;
         await report.validate().catch(err => {
           error = err;
@@ -48,7 +48,7 @@ module.exports = {
         assert.equal(error.name, 'ValidationError');
       },
       'cannot be blank': async function() {
-        let report = new Report({title: ''});
+        let report = new Report({ author: new User(), title: ''});
         let error;
         await report.validate().catch(err => {
           error = err;
