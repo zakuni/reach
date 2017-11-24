@@ -73,6 +73,7 @@ class Editor extends React.Component {
     super(props);
     const report_title = props.match.params.report;
     this.state = {
+      report: null,
       value: report_title || '',
       titleChanged: false
     };
@@ -80,24 +81,37 @@ class Editor extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
-    const response = await request.get(`/api/reports/${this.state.value}`).withCredentials();
-    const report = response.body;
-    this.setState({value: report.title});
+    if (this.state.value !== '') {
+      const response = await request.get(`/api/reports/${this.state.value}`).withCredentials();
+      const report = response.body;
+      this.setState({report: report, value: report.title});
+    }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({titleChanged: false});
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    let report = this.state.report;
+    report.title = event.target.value;
+    this.setState({report: report, value: event.target.value});
   }
   async handleSubmit(event) {
     event.preventDefault();
-    const response = await request.post('/api/reports')
-      .send({title: this.state.value})
-      .set('accept', 'json')
-      .withCredentials();
-    const report = response.body;
-    this.setState({titleChanged: true});
+    let report = this.state.report;
+    if (report) {
+      const response = await request.put('/api/reports')
+        .send({id: report._id, title: report.title})
+        .set('accept', 'json')
+        .withCredentials();
+      report = response.body;
+    } else {
+      const response = await request.post('/api/reports')
+        .send({title: this.state.value})
+        .set('accept', 'json')
+        .withCredentials();
+      report = response.body;
+    }
+    this.setState({report: report, titleChanged: true});
   }
   render() {
     const { titleChanged } = this.state;

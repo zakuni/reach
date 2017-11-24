@@ -99,4 +99,17 @@ router.get('/api/reports/:title', async function (ctx, next) {
   ctx.body = report;
 });
 
+router.put('/api/reports', async function (ctx, next) {
+  if (ctx.isUnauthenticated())
+    return ctx.redirect('/');
+
+  const id = ctx.request.body.id;
+  const title = ctx.request.body.title;
+  // not using update() nor findOneAndUpdate() since they have several caveats with validation in Mongoose 4.x
+  let report = await Report.findOne({ _id: id });
+  report.title = title;
+  report = await report.save();
+  ctx.body = report;
+});
+
 export default router;
