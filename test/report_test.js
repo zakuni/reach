@@ -15,7 +15,7 @@ module.exports = {
     '#author': {
       'when not using User model': {
         'is invalid': async function() {
-          let report = new Report({ author: 'author' });
+          let report = new Report({ author: 'author', title: 'title' });
           let error;
           await report.validate().catch(err => {
             error = err;
@@ -25,7 +25,7 @@ module.exports = {
       },
       'when using User model': {
         'is valid': async function() {
-          let report = new Report({ author: new User() });
+          let report = new Report({ author: new User(), title: 'title' });
           let error;
           await report.validate().catch(err => {
             error = err;
@@ -38,6 +38,14 @@ module.exports = {
       'is defined key': function() {
         let report = new Report({title: 'title'});
         assert.equal(report.title, 'title');
+      },
+      'is required': async function() {
+        let report = new Report();
+        let error;
+        await report.validate().catch(err => {
+          error = err;
+        });
+        assert.equal(error.name, 'ValidationError');
       }
     },
     '#content': {
