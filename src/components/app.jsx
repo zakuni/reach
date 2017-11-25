@@ -6,17 +6,33 @@ import {
   Switch
 } from 'react-router-dom';
 
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 
 const App = () => (
   <div>
-    <Switch>
-      <Route exact path='/' component={Login} />
-      <Route path='/index' component={Index} />
-      <Route path='/new' component={Editor} />
-      <Route path='/:report' component={Editor} />
-    </Switch>
+    <AppBar color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
+      <Toolbar>
+        <a href='/index'
+          style={{
+            color: 'rgba(0, 0, 0, 0.87)',
+            textDecoration: 'none'
+          }}
+        >
+          <h3 style={{marginLeft: '24px'}}>Reach</h3>
+        </a>
+      </Toolbar>
+    </AppBar>
+    <div style={{paddingTop: '80px'}} >
+      <Switch>
+        <Route exact path='/' component={Login} />
+        <Route path='/index' component={Index} />
+        <Route path='/new' component={Editor} />
+        <Route path='/:report' component={Editor} />
+      </Switch>
+    </div>
   </div>
 );
 
