@@ -42,8 +42,6 @@ const passport = require('koa-passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-const IndexRouter = require('./routes').default;
-
 router.get('/auth/google', passport.authenticate('google', { scope: ['openid', 'profile'] }));
 
 router.get('/auth/google/callback',
@@ -58,8 +56,10 @@ router.get('/logout', async ctx => {
   ctx.redirect('/');
 });
 
+const IndexRouter = require('./routes').default;
+
 app
-  .use(IndexRouter.routes())
   .use(router.routes())
+  .use(IndexRouter.routes())
   .use(router.allowedMethods())
   .listen(PORT);
