@@ -13,7 +13,7 @@ import Button from 'material-ui/Button';
 
 const App = () => (
   <div>
-    <AppBar color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
+    <AppBar position='absolute' color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
       <Toolbar>
         <a href='/index'
           style={{
@@ -25,7 +25,7 @@ const App = () => (
         </a>
       </Toolbar>
     </AppBar>
-    <div style={{paddingTop: '80px'}} >
+    <div style={{paddingTop: '100px', marginLeft: '48px'}} >
       <Switch>
         <Route exact path='/' component={Login} />
         <Route path='/index' component={Index} />
