@@ -14,7 +14,10 @@ const reportSchema = new Schema({
       message: '{VALUE} already exists'
     }
   },
-  content: String
+  content: String,
+  reached: [{
+    type: Schema.Types.ObjectId, ref: 'User'
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Report', reportSchema);
