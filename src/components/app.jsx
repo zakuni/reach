@@ -130,17 +130,25 @@ class Editor extends React.Component {
     this.setState({report: report, titleChanged: true});
   }
   render() {
-    const { titleChanged } = this.state;
+    const { report, titleChanged } = this.state;
     if (titleChanged) {
       return(
         <Redirect to={`/${this.state.value}`}/>
       );
     }
+    const reached = report ? <div>{report.reached.length} reached</div> : '';
+    const createdAt = report ? <div>created at: {report.createdAt}</div> : '';
+    const updatedAt = report ? <div>updated at: {report.updatedAt}</div> : '';
     return(
-      <form onSubmit={this.handleSubmit}>
-        <textarea value={this.state.value} onChange={this.handleChange} />
-        <input type='submit' value='submit' />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <textarea value={this.state.value} onChange={this.handleChange} />
+          <input type='submit' value='submit' />
+        </form>
+        {reached}
+        {createdAt}
+        {updatedAt}
+      </div>
     );
   }
 }
