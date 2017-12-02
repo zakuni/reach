@@ -1,4 +1,5 @@
 const assert = require('assert');
+const sinon = require('sinon');
 const Report = require('../models/report');
 const User   = require('../models/user');
 
@@ -25,12 +26,15 @@ module.exports = {
       },
       'when using User model': {
         'is valid': async function() {
+          const stub = sinon.stub(Report, 'count').returns(0);
+
           let report = new Report({ author: new User(), title: 'title' });
           let error;
           await report.validate().catch(err => {
             error = err;
           });
           assert.equal(error, undefined);
+          stub.restore();
         }
       }
     },
@@ -54,6 +58,17 @@ module.exports = {
           error = err;
         });
         assert.equal(error.name, 'ValidationError');
+      },
+      'is unique per user': async function() {
+        const stub = sinon.stub(Report, 'count').returns(1);
+
+        let report = new Report({ author: new User(), title: 'title already exists'});
+        let error;
+        await report.validate().catch(err => {
+          error = err;
+        });
+        assert.equal(error.name, 'ValidationError');
+        stub.restore();
       }
     },
     '#content': {

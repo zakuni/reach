@@ -34,7 +34,7 @@
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "power-assert": "^1.4.4",
-    "sinon": "^4.0.1",
+    "sinon": "^4.1.2",
     "superagent": "^3.8.1",
     "webpack": "^3.6.0"
   },

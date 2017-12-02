@@ -9,7 +9,10 @@ const reportSchema = new Schema({
     required: true,
     validate: {
       validator: async function(v) {
-        await this.model('Report').count({ author: this.author, title: v }) === 0;
+        const count = await this.model('Report').count({ author: this.author._id, title: v });
+        return new Promise((resolve, reject) => {
+          resolve(count === 0);
+        });
       },
       message: '{VALUE} already exists'
     }
