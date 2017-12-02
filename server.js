@@ -11,9 +11,11 @@ const router = require('koa-router')();
 const path = require('path');
 
 const Koa = require('koa');
-const app = new Koa();
+const app = module.exports = new Koa();
 
-app.use(logger());
+if (process.env.NODE_ENV !== 'test') {
+  app.use(logger());
+}
 
 const cors = require('@koa/cors');
 app.use(cors());
@@ -26,11 +28,14 @@ app.keys = [process.env.SESSION_SECRET];
 app.use(session(app));
 
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
-const mongoose = require('mongoose');
-mongoose.connect(MONGODB_URI, {
-  useMongoClient: true
-});
+
+if (process.env.NODE_ENV !== 'test') {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  const mongoose = require('mongoose');
+  mongoose.connect(MONGODB_URI, {
+    useMongoClient: true
+  });
+}
 
 app.use(views(path.resolve(__dirname, 'views'), {
   extension: 'pug'
@@ -61,5 +66,6 @@ const IndexRouter = require('./routes').default;
 app
   .use(router.routes())
   .use(IndexRouter.routes())
-  .use(router.allowedMethods())
-  .listen(PORT);
+  .use(router.allowedMethods());
+
+if (!module.parent) app.listen(PORT);

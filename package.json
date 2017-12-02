@@ -36,13 +36,14 @@
     "power-assert": "^1.4.4",
     "sinon": "^4.1.2",
     "superagent": "^3.8.1",
+    "supertest": "^3.0.0",
     "webpack": "^3.6.0"
   },
   "scripts": {
     "build": "webpack",
     "start-dev": "nodemon server.js & webpack --watch",
     "start-debug": "DEBUG=*,-babel nodemon server.js",
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha",
     "lint": "eslint . --ext .js,.jsx"
   }
 }
