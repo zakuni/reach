@@ -10,6 +10,7 @@ prerequisites
 
 ### Build
 
+Create `.env` based on `.env.sample`
 ```
 docker-compose build
 ```
