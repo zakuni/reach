@@ -70,46 +70,46 @@ router.get(['/index', '/new', '/:report'], async function (ctx, next) {
 
 const Report = require('./models/report');
 
-// eslint-disable-next-line no-unused-vars
-router.post('/api/reports', async (ctx, next) => {
-  if (ctx.isUnauthenticated())
+async function requireAuth(ctx, next) {
+  if (ctx.isUnauthenticated()) {
     return ctx.status = 401;
+  }
+  return next();
+}
 
-  const title = ctx.request.body.title;
-  const report = await Report.create({ title: title, author: ctx.state.user });
-  ctx.body = report;
-});
+router.post('/api/reports', requireAuth,
+  async (ctx) => {
+    const title = ctx.request.body.title;
+    const report = await Report.create({ title: title, author: ctx.state.user });
+    ctx.body = report;
+  }
+);
 
-// eslint-disable-next-line no-unused-vars
-router.get('/api/reports', async function (ctx, next) {
-  if (ctx.isUnauthenticated())
-    return ctx.status = 401;
+router.get('/api/reports', requireAuth,
+  async (ctx) => {
+    const reports = await Report.find({});
+    ctx.body = reports;
+  }
+);
 
-  const reports = await Report.find({});
-  ctx.body = reports;
-});
+router.get('/api/reports/:title', requireAuth,
+  async (ctx) => {
+    const title = ctx.params.title;
+    const report = await Report.findOne({ title: title });
+    ctx.body = report;
+  }
+);
 
-// eslint-disable-next-line no-unused-vars
-router.get('/api/reports/:title', async function (ctx, next) {
-  if (ctx.isUnauthenticated())
-    return ctx.status = 401;
-
-  const title = ctx.params.title;
-  const report = await Report.findOne({ title: title });
-  ctx.body = report;
-});
-
-router.put('/api/reports', async function (ctx, next) {
-  if (ctx.isUnauthenticated())
-    return ctx.status = 401;
-
-  const id = ctx.request.body.id;
-  const title = ctx.request.body.title;
-  // not using update() nor findOneAndUpdate() since they have several caveats with validation in Mongoose 4.x
-  let report = await Report.findOne({ _id: id });
-  report.title = title;
-  report = await report.save();
-  ctx.body = report;
-});
+router.put('/api/reports', requireAuth,
+  async (ctx) => {
+    const id = ctx.request.body.id;
+    const title = ctx.request.body.title;
+    // not using update() nor findOneAndUpdate() since they have several caveats with validation in Mongoose 4.x
+    let report = await Report.findOne({ _id: id });
+    report.title = title;
+    report = await report.save();
+    ctx.body = report;
+  }
+);
 
 export default router;
