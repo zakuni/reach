@@ -42,7 +42,7 @@ app.use(views(path.resolve(__dirname, 'views'), {
 }));
 app.use(require('koa-static')(path.resolve(__dirname, 'dist')));
 
-require('./auth');
+if (process.env.NODE_ENV !== 'test') require('./auth');
 const passport = require('koa-passport');
 app.use(passport.initialize());
 app.use(passport.session());
