@@ -73,7 +73,7 @@ const Report = require('./models/report');
 // eslint-disable-next-line no-unused-vars
 router.post('/api/reports', async (ctx, next) => {
   if (ctx.isUnauthenticated())
-    return ctx.redirect('/');
+    return ctx.status = 401;
 
   const title = ctx.request.body.title;
   const report = await Report.create({ title: title, author: ctx.state.user });
@@ -83,7 +83,7 @@ router.post('/api/reports', async (ctx, next) => {
 // eslint-disable-next-line no-unused-vars
 router.get('/api/reports', async function (ctx, next) {
   if (ctx.isUnauthenticated())
-    return ctx.redirect('/');
+    return ctx.status = 401;
 
   const reports = await Report.find({});
   ctx.body = reports;
@@ -92,7 +92,7 @@ router.get('/api/reports', async function (ctx, next) {
 // eslint-disable-next-line no-unused-vars
 router.get('/api/reports/:title', async function (ctx, next) {
   if (ctx.isUnauthenticated())
-    return ctx.redirect('/');
+    return ctx.status = 401;
 
   const title = ctx.params.title;
   const report = await Report.findOne({ title: title });
@@ -101,7 +101,7 @@ router.get('/api/reports/:title', async function (ctx, next) {
 
 router.put('/api/reports', async function (ctx, next) {
   if (ctx.isUnauthenticated())
-    return ctx.redirect('/');
+    return ctx.status = 401;
 
   const id = ctx.request.body.id;
   const title = ctx.request.body.title;
