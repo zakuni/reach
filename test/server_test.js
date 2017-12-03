@@ -25,9 +25,23 @@ module.exports = {
     }
   },
 
+  'POST /api/reports': {
+    'returns 302': async function() {
+      const response = await request.post('/api/reports');
+      assert.equal(response.status, 302);
+    }
+  },
+
   'GET /api/reports': {
     'returns 302': async function() {
       const response = await request.get('/api/reports');
+      assert.equal(response.status, 302);
+    }
+  },
+
+  'PUT /api/reports': {
+    'returns 302': async function() {
+      const response = await request.put('/api/reports');
       assert.equal(response.status, 302);
     }
   },
