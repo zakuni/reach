@@ -25,6 +25,13 @@ module.exports = {
     }
   },
 
+  'GET /logout': {
+    'returns 302': async function() {
+      const response = await request.get('/logout');
+      assert.equal(response.status, 302);
+    }
+  },
+
   'POST /api/reports': {
     'returns 401': async function() {
       const response = await request.post('/api/reports');
