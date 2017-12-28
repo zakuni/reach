@@ -108,7 +108,9 @@ class Editor extends React.Component {
   }
   handleChange(event) {
     let report = this.state.report;
-    report.title = event.target.value;
+    if (report) {
+      report.title = event.target.value;
+    }
     this.setState({report: report, value: event.target.value});
   }
   async handleSubmit(event) {
