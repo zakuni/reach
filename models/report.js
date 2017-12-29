@@ -19,7 +19,14 @@ const reportSchema = new Schema({
   },
   content: String,
   reached: [{
-    type: Schema.Types.ObjectId, ref: 'User'
+    type: Schema.Types.ObjectId, ref: 'User',
+    validate: {
+      validator: function(v){
+        return new Promise(resolve => {
+          resolve(!v.includes(this.author._id) && !v.includes(this.author._id));
+        });
+      }
+    }
   }]
 }, { timestamps: true });
 

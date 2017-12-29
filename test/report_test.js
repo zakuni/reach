@@ -76,6 +76,26 @@ module.exports = {
         let report = new Report({content: 'content'});
         assert.equal(report.content, 'content');
       }
+    },
+    '#reached': {
+      'is empty array': function() {
+        let report = new Report({content: 'content'});
+        assert.equal(report.reached.length, 0);
+      },
+      'when author is self': {
+        'is invalid': async function() {
+          const stub = sinon.stub(Report, 'count').returns(0);
+          let author = new User();
+          let report = new Report({author: author, title: 'title', content: 'content'});
+          report.reached.push(author._id);
+          let error;
+          await report.validate().catch(err => {
+            error = err;
+          });
+          assert.equal(error.name, 'ValidationError');
+          stub.restore();
+        }
+      }
     }
   }
 };
