@@ -4,7 +4,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  googleId: String,
+  googleId: { type: String, unique: true },
   reports: [{ type: Schema.Types.ObjectId, ref: 'Report'}]
 }, { timestamps: true });
 userSchema.plugin(findOrCreate);
