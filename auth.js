@@ -17,8 +17,20 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: 'http://localhost:' + (process.env.PORT || 3000) + '/auth/google/callback'
 },
-function(accessToken, refreshToken, profile, done) {
-  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    return done(err, user);
+async function(accessToken, refreshToken, profile, done) {
+  let user = await User.findOne({ googleId: profile.id }).catch(err => {
+    return done(err);
   });
+  if (!user) {
+    user = await User.create({ googleId: profile.id, username: profile.displayName }).catch(err => {
+      return done(err);
+    });
+  } else {
+    user.username = profile.displayName;
+    user.profile_image_url = profile.photos[0].value;
+    user = await user.save().catch(err => {
+      return done(err);
+    });
+  }
+  return done(null, user);
 }));
