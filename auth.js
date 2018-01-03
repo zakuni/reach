@@ -22,7 +22,9 @@ async function(accessToken, refreshToken, profile, done) {
     return done(err);
   });
   if (!user) {
-    user = await User.create({ googleId: profile.id, username: profile.displayName }).catch(err => {
+    user = await User.create({
+      googleId: profile.id, username: profile.displayName, profile_image_url: profile.photos[0].value
+    }).catch(err => {
       return done(err);
     });
   } else {

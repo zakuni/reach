@@ -10,8 +10,20 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Avatar from 'material-ui/Avatar';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      me: null
+    };
+  }
+  async componentDidMount() {
+    const response = await fetch('/api/me', {credentials: 'include'});
+    const me = await response.json();
+    this.setState({me: me});
+  }
   render () {
     return (
       <div>
@@ -20,11 +32,15 @@ class App extends React.Component {
             <a href='/index'
               style={{
                 color: 'rgba(0, 0, 0, 0.87)',
-                textDecoration: 'none'
+                textDecoration: 'none',
+                flex: 1
               }}
             >
               <h3 style={{marginLeft: '24px'}}>Reach</h3>
             </a>
+            {this.state.me && (
+              <Avatar src={this.state.me.profile_image_url} />
+            )}
           </Toolbar>
         </AppBar>
         <div style={{paddingTop: '100px', marginLeft: '48px'}} >
