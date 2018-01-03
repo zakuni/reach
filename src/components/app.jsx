@@ -11,30 +11,34 @@ import Toolbar from 'material-ui/Toolbar';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 
-const App = () => (
-  <div>
-    <AppBar position='absolute' color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
-      <Toolbar>
-        <a href='/index'
-          style={{
-            color: 'rgba(0, 0, 0, 0.87)',
-            textDecoration: 'none'
-          }}
-        >
-          <h3 style={{marginLeft: '24px'}}>Reach</h3>
-        </a>
-      </Toolbar>
-    </AppBar>
-    <div style={{paddingTop: '100px', marginLeft: '48px'}} >
-      <Switch>
-        <Route exact path='/' component={Login} />
-        <Route path='/index' component={Index} />
-        <Route path='/new' component={Editor} />
-        <Route path='/:report' component={Editor} />
-      </Switch>
-    </div>
-  </div>
-);
+class App extends React.Component {
+  render () {
+    return (
+      <div>
+        <AppBar position='absolute' color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
+          <Toolbar>
+            <a href='/index'
+              style={{
+                color: 'rgba(0, 0, 0, 0.87)',
+                textDecoration: 'none'
+              }}
+            >
+              <h3 style={{marginLeft: '24px'}}>Reach</h3>
+            </a>
+          </Toolbar>
+        </AppBar>
+        <div style={{paddingTop: '100px', marginLeft: '48px'}} >
+          <Switch>
+            <Route exact path='/' component={Login} />
+            <Route path='/index' component={Index} />
+            <Route path='/new' component={Editor} />
+            <Route path='/:report' component={Editor} />
+          </Switch>
+        </div>
+      </div>
+    );
+  }
+}
 
 const Login = () => (
   <Grid container spacing={24}>
