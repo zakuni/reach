@@ -53,6 +53,13 @@ module.exports = {
     }
   },
 
+  'GET /api/me': {
+    'returns 401': async function() {
+      const response = await request.get('/api/me');
+      assert.equal(response.status, 401);
+    }
+  },
+
   after: async function() {
     await server.close();
   }

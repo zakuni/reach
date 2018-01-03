@@ -77,6 +77,12 @@ async function requireAuth(ctx, next) {
   return next();
 }
 
+router.get('/api/me', requireAuth,
+  async ctx => {
+    ctx.body = ctx.state.user;
+  }
+);
+
 router.post('/api/reports', requireAuth,
   async (ctx) => {
     const title = ctx.request.body.title;
