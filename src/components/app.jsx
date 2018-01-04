@@ -33,11 +33,16 @@ class App extends React.Component {
               style={{
                 color: 'rgba(0, 0, 0, 0.87)',
                 textDecoration: 'none',
-                flex: 1
+                marginLeft: '24px'
               }}
             >
-              <h3 style={{marginLeft: '24px'}}>Reach</h3>
+              <h3>Reach</h3>
             </a>
+            <div
+              style={{
+                flex: 1
+              }}
+            ></div>
             {this.state.me && (
               <Avatar src={this.state.me.profile_image_url} />
             )}
