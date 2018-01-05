@@ -11,20 +11,32 @@ import Toolbar from 'material-ui/Toolbar';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Avatar from 'material-ui/Avatar';
+import Menu, { MenuItem } from 'material-ui/Menu';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      me: null
+      me: null,
+      anchorEl: null
     };
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   async componentDidMount() {
     const response = await fetch('/api/me', {credentials: 'include'});
     const me = await response.json();
     this.setState({me: me});
   }
+  handleMenu(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+  handleClose() {
+    this.setState({ anchorEl: null });
+  }
   render () {
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
     return (
       <div>
         <AppBar position='absolute' color='default' style={{boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2)'}}>
@@ -44,7 +56,33 @@ class App extends React.Component {
               }}
             ></div>
             {this.state.me && (
-              <Avatar src={this.state.me.profile_image_url} />
+              <div>
+                <Avatar
+                  src={this.state.me.profile_image_url}
+                  onClick={this.handleMenu}
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                />
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem component='a' href='/logout'>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </div>
             )}
           </Toolbar>
         </AppBar>
